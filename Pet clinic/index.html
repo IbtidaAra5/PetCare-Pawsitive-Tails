@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pawsitive Tails Veterinary Care</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===================== LOGIN VIEW ===================== -->
+<section id="loginView" class="login-screen">
+  <div class="login-brand">
+    <div class="paw-field" aria-hidden="true">
+      <span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span>
+    </div>
+    <div class="login-brand-content">
+      <div class="brand-mark">
+        <span class="brand-paw">🐾</span> Pawsitive Tails
+      </div>
+      <h1>Care that remembers<br>every wagging tail.</h1>
+      <p>Book visits, track vaccinations and message your vet — all from one calm, simple place.</p>
+    </div>
+  </div>
+  <div class="login-panel">
+    <form class="login-card" id="loginForm">
+      <h2>Welcome back</h2>
+      <p class="login-sub">This is a demo — any name and email will let you in.</p>
+      <label class="field">
+        <span>Your name</span>
+        <input type="text" id="loginName" placeholder="Ibtida Ara" required>
+      </label>
+      <label class="field">
+        <span>Email</span>
+        <input type="email" id="loginEmail" placeholder="you@example.com" required>
+      </label>
+      <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+      <p class="login-foot">New here? Signing in also creates your demo account.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ===================== APP SHELL ===================== -->
+<div id="appShell" class="app-shell hidden">
+
+  <aside class="sidebar">
+    <div class="brand-mark">
+      <span class="brand-paw">🐾</span> Pawsitive Tails
+    </div>
+    <nav class="side-nav">
+      <button class="nav-item active" data-view="dashboard"><span class="nav-icon">🏠</span>Dashboard</button>
+      <button class="nav-item" data-view="pets"><span class="nav-icon">🐶</span>My Pets</button>
+      <button class="nav-item" data-view="appointments"><span class="nav-icon">📅</span>Appointments</button>
+      <button class="nav-item" data-view="vets"><span class="nav-icon">🩺</span>Vets</button>
+      <button class="nav-item" data-view="services"><span class="nav-icon">✂️</span>Services</button>
+      <button class="nav-item" data-view="billing"><span class="nav-icon">💳</span>Billing</button>
+      <button class="nav-item" data-view="pharmacy"><span class="nav-icon">💊</span>Pharmacy</button>
+      <button class="nav-item" data-view="messages"><span class="nav-icon">💬</span>Messages</button>
+    </nav>
+    <button class="nav-item nav-logout" id="logoutBtn"><span class="nav-icon">↩</span>Sign out</button>
+  </aside>
+
+  <div class="app-main">
+    <header class="topbar">
+      <div class="topbar-search">
+        <span aria-hidden="true">🔍</span>
+        <input type="text" id="globalSearch" placeholder="Search pets or vets…">
+      </div>
+      <div class="topbar-actions">
+        <div class="bell-wrap">
+          <button class="icon-btn" id="bellBtn" aria-label="Notifications">🔔<span class="bell-dot" id="bellDot"></span></button>
+          <div class="dropdown hidden" id="bellDropdown">
+            <p class="dropdown-title">Notifications</p>
+            <ul id="notifList"></ul>
+          </div>
+        </div>
+        <div class="user-chip">
+          <span class="user-avatar" id="userAvatar">?</span>
+          <span id="userName">Guest</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="view-area">
+
+      <!-- DASHBOARD -->
+      <section class="view" id="view-dashboard">
+        <div class="view-head">
+          <div>
+            <h1 id="dashGreeting">Hi there 👋</h1>
+            <p class="view-sub">Here's what's happening with your pets today.</p>
+          </div>
+          <button class="btn btn-primary" data-open-booking>+ Book appointment</button>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card stat-sage">
+            <span class="stat-num" id="statPets">0</span>
+            <span class="stat-label">Pets registered</span>
+          </div>
+          <div class="stat-card stat-marigold">
+            <span class="stat-num" id="statAppointments">0</span>
+            <span class="stat-label">Upcoming visits</span>
+          </div>
+          <div class="stat-card stat-coral">
+            <span class="stat-num" id="statMessages">0</span>
+            <span class="stat-label">Unread messages</span>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <div class="dash-block">
+            <div class="block-head">
+              <h2>Upcoming appointment</h2>
+              <button class="link-btn" data-view-link="appointments">View all</button>
+            </div>
+            <div id="nextAppointment" class="next-appointment"></div>
+          </div>
+          <div class="dash-block">
+            <div class="block-head">
+              <h2>Your pets</h2>
+              <button class="link-btn" data-view-link="pets">View all</button>
+            </div>
+            <div id="dashPets" class="dash-pet-row"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MY PETS -->
+      <section class="view hidden" id="view-pets">
+        <div class="view-head">
+          <div>
+            <h1>My Pets</h1>
+            <p class="view-sub">Every pet gets a passport — health notes, always on hand.</p>
+          </div>
+          <button class="btn btn-primary" id="addPetBtn">+ Add pet</button>
+        </div>
+        <div id="petGrid" class="pet-grid"></div>
+      </section>
+
+      <!-- APPOINTMENTS -->
+      <section class="view hidden" id="view-appointments">
+        <div class="view-head">
+          <div>
+            <h1>Appointments</h1>
+            <p class="view-sub">Everything you've booked, past and upcoming.</p>
+          </div>
+          <button class="btn btn-primary" data-open-booking>+ Book appointment</button>
+        </div>
+        <div id="appointmentList" class="appointment-list"></div>
+      </section>
+
+      <!-- VETS -->
+      <section class="view hidden" id="view-vets">
+        <div class="view-head">
+          <div>
+            <h1>Our Vets</h1>
+            <p class="view-sub">Meet the team looking after your pets.</p>
+          </div>
+        </div>
+        <div id="vetGrid" class="vet-grid"></div>
+      </section>
+
+      <!-- SERVICES -->
+      <section class="view hidden" id="view-services">
+        <div class="view-head">
+          <div>
+            <h1>Services &amp; Pricing</h1>
+            <p class="view-sub">Simple, upfront pricing for every visit.</p>
+          </div>
+        </div>
+        <div id="serviceGrid" class="service-grid"></div>
+      </section>
+
+      <!-- BILLING -->
+      <section class="view hidden" id="view-billing">
+        <div class="view-head">
+          <div>
+            <h1>Billing</h1>
+            <p class="view-sub">Invoices for every visit, and what's still owed.</p>
+          </div>
+        </div>
+
+        <div class="billing-grid">
+          <div class="billing-card billing-sage">
+            <span class="stat-num" id="billTotal">৳0</span>
+            <span class="stat-label">Total billed</span>
+          </div>
+          <div class="billing-card billing-marigold">
+            <span class="stat-num" id="billOutstanding">৳0</span>
+            <span class="stat-label">Outstanding balance</span>
+          </div>
+          <div class="billing-card billing-coral">
+            <span class="stat-num" id="billPaid">৳0</span>
+            <span class="stat-label">Paid this year</span>
+          </div>
+        </div>
+
+        <div id="invoiceList" class="invoice-list"></div>
+      </section>
+
+      <!-- PHARMACY -->
+      <section class="view hidden" id="view-pharmacy">
+        <div class="view-head">
+          <div>
+            <h1>Pharmacy</h1>
+            <p class="view-sub">Order medicines for your pets — prescription items are checked before purchase.</p>
+          </div>
+          <button class="btn btn-primary" id="openCartBtn">🛒 Cart <span id="cartCount">0</span></button>
+        </div>
+        <div id="medicineGrid" class="medicine-grid"></div>
+      </section>
+
+      <!-- MESSAGES -->
+      <section class="view hidden" id="view-messages">
+        <div class="view-head">
+          <div>
+            <h1>Messages</h1>
+            <p class="view-sub">Chat with the Pawsitive Tails front desk.</p>
+          </div>
+        </div>
+        <div class="chat-panel">
+          <div class="chat-body" id="chatBody"></div>
+          <form class="chat-input-row" id="chatForm">
+            <input type="text" id="chatInput" placeholder="Type a message…" autocomplete="off">
+            <button type="submit" class="btn btn-primary">Send</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ===================== ADD PET MODAL ===================== -->
+<div class="modal-overlay hidden" id="petModalOverlay">
+  <form class="modal-card" id="petForm">
+    <div class="modal-head">
+      <h2>Add a pet</h2>
+      <button type="button" class="modal-close" data-close-modal="petModalOverlay">✕</button>
+    </div>
+    <label class="field">
+      <span>Pet's name</span>
+      <input type="text" id="petName" placeholder="Bumi" required>
+    </label>
+    <div class="field-row">
+      <label class="field">
+        <span>Species</span>
+        <select id="petSpecies">
+          <option>Dog</option>
+          <option>Cat</option>
+          <option>Rabbit</option>
+          <option>Bird</option>
+          <option>Other</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Age</span>
+        <input type="text" id="petAge" placeholder="2 years">
+      </label>
+    </div>
+    <label class="field">
+      <span>Breed</span>
+      <input type="text" id="petBreed" placeholder="Shih Tzu">
+    </label>
+    <label class="field">
+      <span>Health notes</span>
+      <textarea id="petNotes" rows="2" placeholder="Allergies, vaccination status, anything the vet should know"></textarea>
+    </label>
+    <button type="submit" class="btn btn-primary btn-block">Add pet</button>
+  </form>
+</div>
+
+<!-- ===================== BOOKING MODAL ===================== -->
+<div class="modal-overlay hidden" id="bookingModalOverlay">
+  <form class="modal-card" id="bookingForm">
+    <div class="modal-head">
+      <h2>Book an appointment</h2>
+      <button type="button" class="modal-close" data-close-modal="bookingModalOverlay">✕</button>
+    </div>
+    <label class="field">
+      <span>Pet</span>
+      <select id="bookPet" required></select>
+    </label>
+    <label class="field">
+      <span>Vet</span>
+      <select id="bookVet" required></select>
+    </label>
+    <div class="field-row">
+      <label class="field">
+        <span>Date</span>
+        <input type="date" id="bookDate" required>
+      </label>
+      <label class="field">
+        <span>Time</span>
+        <input type="time" id="bookTime" required>
+      </label>
+    </div>
+    <label class="field">
+      <span>Reason for visit</span>
+      <input type="text" id="bookReason" placeholder="Annual checkup, vaccination…">
+    </label>
+    <button type="submit" class="btn btn-primary btn-block">Confirm booking</button>
+  </form>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ===================== PAYMENT MODAL ===================== -->
+<div class="modal-overlay hidden" id="paymentModalOverlay">
+  <form class="modal-card" id="paymentForm">
+    <div class="modal-head">
+      <h2>Pay invoice</h2>
+      <button type="button" class="modal-close" data-close-modal="paymentModalOverlay">✕</button>
+    </div>
+    <div class="payment-summary">
+      <span>Amount due</span>
+      <strong id="paymentAmount">৳0</strong>
+    </div>
+    <label class="field">
+      <span>Name on card</span>
+      <input type="text" id="payName" placeholder="Ibtida Ara" required>
+    </label>
+    <label class="field">
+      <span>Card number</span>
+      <input type="text" id="payCardNumber" placeholder="4242 4242 4242 4242" inputmode="numeric" maxlength="19" required>
+    </label>
+    <div class="field-row">
+      <label class="field">
+        <span>Expiry</span>
+        <input type="text" id="payExpiry" placeholder="MM/YY" maxlength="5" required>
+      </label>
+      <label class="field">
+        <span>CVV</span>
+        <input type="text" id="payCvv" placeholder="123" inputmode="numeric" maxlength="3" required>
+      </label>
+    </div>
+    <p class="payment-note">🔒 Demo only — no real payment is processed and no card data is stored.</p>
+    <button type="submit" class="btn btn-primary btn-block" id="paySubmitBtn">Confirm payment</button>
+  </form>
+</div>
+
+<!-- ===================== REVIEW MODAL ===================== -->
+<div class="modal-overlay hidden" id="reviewModalOverlay">
+  <form class="modal-card" id="reviewForm">
+    <div class="modal-head">
+      <h2>Write a review</h2>
+      <button type="button" class="modal-close" data-close-modal="reviewModalOverlay">✕</button>
+    </div>
+    <p class="review-modal-sub">Rating <strong id="reviewVetName"></strong></p>
+    <div class="star-picker" id="starPicker">
+      <button type="button" class="star-btn" data-star="1">☆</button>
+      <button type="button" class="star-btn" data-star="2">☆</button>
+      <button type="button" class="star-btn" data-star="3">☆</button>
+      <button type="button" class="star-btn" data-star="4">☆</button>
+      <button type="button" class="star-btn" data-star="5">☆</button>
+    </div>
+    <label class="field">
+      <span>Your name</span>
+      <input type="text" id="reviewAuthor" placeholder="Ibtida Ara">
+    </label>
+    <label class="field">
+      <span>Your review</span>
+      <textarea id="reviewComment" rows="3" placeholder="How was your visit?"></textarea>
+    </label>
+    <button type="submit" class="btn btn-primary btn-block">Submit review</button>
+  </form>
+</div>
+
+<!-- ===================== PRESCRIPTION MODAL ===================== -->
+<div class="modal-overlay hidden" id="prescriptionModalOverlay">
+  <form class="modal-card" id="prescriptionForm">
+    <div class="modal-head">
+      <h2>Prescription required</h2>
+      <button type="button" class="modal-close" data-close-modal="prescriptionModalOverlay">✕</button>
+    </div>
+    <p class="review-modal-sub"><strong id="prescriptionMedName"></strong> needs a valid prescription to purchase.</p>
+    <label class="field">
+      <span>Prescribing vet</span>
+      <select id="prescriptionVet" required></select>
+    </label>
+    <label class="field">
+      <span>Prescription reference / note</span>
+      <textarea id="prescriptionNote" rows="2" placeholder="e.g. Prescribed during visit on 3 Jul, ref #PT-2201"></textarea>
+    </label>
+    <p class="payment-note">🔒 Demo only — this simulates a prescription check, no document is actually verified.</p>
+    <button type="submit" class="btn btn-primary btn-block">Add to cart</button>
+  </form>
+</div>
+
+<!-- ===================== CART MODAL ===================== -->
+<div class="modal-overlay hidden" id="cartModalOverlay">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h2>Your cart</h2>
+      <button type="button" class="modal-close" data-close-modal="cartModalOverlay">✕</button>
+    </div>
+    <label class="field">
+      <span>Ordering for</span>
+      <select id="cartPetSelect"></select>
+    </label>
+    <div id="cartItemList" class="cart-item-list"></div>
+    <div class="cart-total-row">
+      <span>Total</span>
+      <strong id="cartTotal">৳0</strong>
+    </div>
+    <button type="button" class="btn btn-primary btn-block" id="checkoutBtn">Checkout</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
