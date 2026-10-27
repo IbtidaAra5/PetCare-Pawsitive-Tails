@@ -23,9 +23,7 @@
 
 **Pawsitive Tails** is a single-page frontend demo of a veterinary care platform. Pet owners can sign in, keep profiles for their pets, book appointments with specialist vets, pay invoices, order medicine from an online pharmacy, and message the front desk.
 
-It is built with plain **HTML, CSS and JavaScript**, with no frameworks, no build step and nothing to install. Everything runs in the browser using in-memory demo data.
-
-> 🔒 **This is a demo.** No real payment is processed, no card data is stored, and the prescription check is only a simulation.
+It is built with plain **HTML, CSS and JavaScript**
 
 ---
 
@@ -258,6 +256,10 @@ Suggestions and improvements are welcome.
 4. Push the branch and open a Pull Request
 
 ---
+## Future work
+1. real payment  proccedure
+2. make sure card data is stored
+3. the prescription check in realtime
 
 ## 👩‍💻 Author
 
